@@ -1,0 +1,44 @@
+1.设计模式总结：
+    工厂模式：根据不同的需求生产产品，不在乎过程，只在乎结果
+	单例模式：保证独一无二。
+	原型模式：拔一根猴毛，吹出千万个。
+	代理模式：添加工人，增强原有的功能。
+	委派模式：干活算你的（普通员工），功劳算我的（项目经理）。
+	策略模式：用户选择，结果统一。
+	模板模式：流程标准化，定制化。
+	适配器模式：兼容转换头。
+	装饰者模式：包装，同宗同源。
+	观察者模式：发布订阅
+	
+2.spring AOP  ， IOC  ， DI 代码片段
+
+	1.AOP 常用的注解有： @Pointcut  @Before  @After  等
+			
+		例子：声明式事物
+				<!-- 声名式事物 -->
+				<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="basicDataSource" ></property>
+				</bean>
+				
+				<!-- 事物规则配置 -->
+				<tx:advice id="transaction" transaction-manager="dataSourceTransactionManager">
+					<tx:attributes>
+						<tx:method name="add*" isolation="DEFAULT" propagation="REQUIRED"/>
+						<tx:method name="del*" isolation="DEFAULT" propagation="REQUIRED"/>
+						<tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED"/>
+					</tx:attributes>
+				</tx:advice>
+				
+				<!-- 事物的使用配置 -->
+				<aop:config>
+					<aop:pointcut expression="execution(* online.miaoxing.service..*.*(..))" id="pointCut"/>
+					<aop:advisor advice-ref="transaction" pointcut-ref="pointCut"/>
+				</aop:config>
+	
+	2. IOC ： <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="basicDataSource" ></property>
+			  </bean>
+			  
+	3. DI ： @Autowired
+			 private Service service；
+
